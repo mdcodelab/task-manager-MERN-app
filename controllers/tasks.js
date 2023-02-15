@@ -1,8 +1,15 @@
 
 const Task=require("../models/task")
 
-const getAllTasks= (req, res) => {
-res.send("gel all items")
+
+const getAllTasks= async (req, res) => {
+    try {
+        const tasks=await Task.find({})
+        res.status(200).json({tasks})
+    } catch (error) {
+        res.status(500).json({msg: error})
+        
+    }
 }
 
 
@@ -15,19 +22,49 @@ const createTask= async (req, res) => {
    }
     }
 
-const getTask= (req, res) => {
-    
-res.send("get task")
+
+const getTask = async (req, res) => {
+    try {
+        const {id}=req.params
+       const task= await Task.findOne({_id: id}) 
+        res.status(200).json({task})
+        if(!task) {
+            return res.status(404).json({msg: `No rask with id: ${id}`})
+        }
+    } catch (error) {
+      res.status(500).json({msg: error})  
+    }
 }
 
-const updateTask= (req, res) => {
 
-    res.send("update task")
+const deleteTask = async (req, res) => {
+    try {
+       const {id}=req.params
+       let task = await Task.findOneAndDelete({_id: id})
+       res.status(200).json({task})
+       if(!task) {
+        return res.status(404).json({msg: `The task with id: ${id} dies not exist`})
+       }
+    } catch (error) {
+      res.status(500).json({msg: error})  
+    }
     }
 
-const deleteTask= (req, res) => {
-    res.send("delete task")
-    }
+    const updateTask = async (req, res) => {
+        try {
+           const {id}=req.params;
+            const task = await Task.findOneAndUpdate({_id: id}, req.body, {
+                new: true, runValidators: true
+        })
+           res.status(200).json({_id: id, data: req.body})
+           if(!task) {
+            return res.status(404).json({msg: `The task with id: ${id} dies not exist`})
+           }
+        } catch (error) {
+            res.status(500).json({msg: error})
+        }
+        }
+
 
 module.exports = {
     getAllTasks,
