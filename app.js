@@ -1,12 +1,23 @@
 const express=require("express")
-
 const app = express()
 require("dotenv").config()
+const cors=require("cors")
+app.use(cors());
+
+
+//routes
 const tasks=require("./routes/tasks")
+app.use('/api/v1/tasks', tasks)
 
-const port = 3000
 
+//connectDB
 const connectDB = require("./db/connect")
+
+
+//port
+const PORT = process.env.PORT || 3001
+
+
 
 //middleware
 app.use(express.json());
@@ -17,19 +28,18 @@ app.use(express.json());
 //app.patch("/api/v1/tasks/:id") - update task
 //app.delete("/api/v1/tasks/:id") - delete task
 
-//routes
-app.use('/api/v1/tasks', tasks)
+
 
 app.get("/", (req, res) => {
-    res.send("Task manager app")
+    res.send()
 })
 
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI)
         console.log("connected to DB")
-        app.listen(3000, () => {
-            console.log(`server is listening on port ${port}...`)
+        app.listen(PORT, () => {
+            console.log(`server is listening on port ${PORT}...`)
         })
     } catch (error) {
         console.log(err)
