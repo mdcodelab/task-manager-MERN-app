@@ -1,8 +1,18 @@
 const express=require("express")
 const app = express()
 require("dotenv").config()
-const cors=require("cors")
-app.use(cors());
+
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
+  
+  
+//middleware
+app.use(express.json());
 
 
 //routes
@@ -13,14 +23,11 @@ app.use('/api/v1/tasks', tasks)
 //connectDB
 const connectDB = require("./db/connect")
 
-
 //port
 const PORT = process.env.PORT || 3001
 
 
 
-//middleware
-app.use(express.json());
 
 //app.get("/api/v1/tasks") - get all the tasks
 //app.get("/api/v1/tasks/:id") - get a single task
