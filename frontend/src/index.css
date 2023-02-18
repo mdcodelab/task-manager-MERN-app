@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 body {
@@ -122,6 +123,87 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
+
+/*SIngle Task*/
+div.singleTask {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.singleTask h1 {
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1rem;
+    font-size: 1.8rem;
+}
+
+div.content {
+    width: 29vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(50, 50, 111, 0.5) 0px 7px 29px 0px;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+form.edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 35vh;
+}
+
+div.id, div.name, div.completed {
+width: 100%;
+display: flex;
+align-items: center;
+}
+
+div.id label, div.name label, div.completed label {
+    display: inline-block;
+    margin-right: 1rem;
+    flex: 1;
+    }
+
+div.id input, div.name input {
+flex: 4;
+padding: 0.5rem;
+border: 0.05rem solid gray;
+outline: none;
+border-radius: 0.3rem;
+}
+
+.btn {
+    padding: 0.45rem;
+    border-radius: 0.3rem;
+    border: none;
+    display: inline-block;
+    margin-left: 0.1rem;
+    letter-spacing: 0.05rem;
+    background: #000080;
+    color: #fff;
+    cursor: pointer;
+    transition: all 2s ease;
+}
+
+.btn:hover {
+    background: #8a0303;
+}
+
+.comp {
+    text-decoration: line-through;
+}
+
+
+
+
 
 
 

@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<TaskList></TaskList>}></Route>
-        <Route path="/:id" element={<SingleTask></SingleTask>}></Route>
+        <Route path="/tasks/:id" element={<SingleTask></SingleTask>}></Route>
 
       </Routes>
     </Router>

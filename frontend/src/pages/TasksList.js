@@ -7,10 +7,13 @@ import {Link} from "react-router-dom"
 
 function TaskList() {
   const[tasks, setTasks]=React.useState([])
-
+  //add text state
   const [text, setText]=React.useState("");
-  const[loading, setLoading]=React.useState(true);
+//select task state
+const[selectTask, setSelectTask]=React.useState(null);
 
+  const[loading, setLoading]=React.useState(true);
+  
 
   //get all tasks
 const getAllTasks = async () => {
@@ -62,16 +65,13 @@ async function onSubmit(e) {
 }
 
 //deleting tasks
-async function onClick (id) {
+async function handleClick (id) {
   console.log(id);
 const response = await fetch(`http://localhost:3001/api/v1/tasks/${id}`, {method: "DELETE"})
 const task=await response.json();
 setTasks([...tasks.filter(task => (task._id !== id))])
 console.log(tasks)
 }
-
-
-
 
   if(loading) {
     return <h1>Loading...</h1>
@@ -90,14 +90,14 @@ console.log(tasks)
       <div className="all-tasks">
       {tasks && tasks.map((task, index) => {
         return <div className="task" key={task._id}>
-          <p>{task.name}</p>
+          <p className={task.completed ? "comp" : ""}>{task.name}</p>
           <div className="icons">
-          <Link to={`tasks/${task._id}`}><FaEdit className="icon green"></FaEdit></Link>
-            <FaTrash className="icon red" onClick={()=> onClick(task._id)}></FaTrash>
+          <Link to={`/tasks/${task._id}`}><FaEdit className="icon green"></FaEdit></Link>
+            <FaTrash className="icon red" onClick={()=> handleClick(task._id)}></FaTrash>
         </div>
       </div>
       })}
-      {tasks.length === 0 && <p>No tasks found.</p>}
+      {tasks.length === 0 && <p>No tasks for the moment.</p>}
 
       </div>
     </div>
