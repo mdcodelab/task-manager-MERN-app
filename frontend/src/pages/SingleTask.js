@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from "./Spinner";
 import { useParams, Link} from 'react-router-dom';
 
 function SingleTask() {
@@ -11,14 +12,14 @@ const {id}=useParams();
   React.useEffect(() => {
     
     const handleSelect = async () => {
-      setLoading(true); ////////////////////////
+      setLoading(true); 
       try{
        let response=await fetch(`http://localhost:3001/api/v1/tasks/${id}`)
       let data= await response.json().then(data => data);
     console.log(data);
     console.log(data.task);
       setTask(data.task);
-      setLoading(false); //////////////////
+      setLoading(false); 
   } catch(error) {
   console.log(error)
 }
@@ -67,7 +68,7 @@ async function updateTask(e) {
 
 
 if(loading) {
-  return <h1>Loading...</h1>
+  return <h1><Spinner></Spinner></h1>
 }
 
   

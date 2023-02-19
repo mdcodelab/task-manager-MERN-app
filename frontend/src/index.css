@@ -67,14 +67,14 @@ div.container form button:hover {
 
 div.number {
 color: #8a0303;
-width: 60%;
+width: 100%;
 position: absolute;
 left: 45%;
 top: 13%;
 transform: translateX(-45%);
 text-align: left;
 font-size: 1.2rem;
-
+text-align: center;
 }
 
 /* ALL TASKS */
@@ -142,7 +142,7 @@ div.singleTask h1 {
 
 div.content {
     width: 29vw;
-    height: 60vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -157,7 +157,8 @@ form.edit {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    height: 35vh;
+    max-width: 100%;
+    height: 50vh;
 }
 
 div.id, div.name, div.completed {
@@ -169,11 +170,11 @@ align-items: center;
 div.id label, div.name label, div.completed label {
     display: inline-block;
     margin-right: 1rem;
-    flex: 1;
+    
     }
 
 div.id input, div.name input {
-flex: 4;
+flex: 1;
 padding: 0.5rem;
 border: 0.05rem solid gray;
 outline: none;
@@ -201,6 +202,78 @@ border-radius: 0.3rem;
     text-decoration: line-through;
 }
 
+/* Spinner*/
+div.spinner-container {
+    width:100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.spinner {
+width: 30rem;
+height: 30rem;
+}
+
+@media (max-width: 900px) {
+    form, input, button, .link {
+        font-size: 80%;
+    }
+    input {
+        padding: 0.5rem;
+    }
+    
+}
+@media (max-width: 788px) {
+    div.id label, div.name label, div.completed label {
+        width:10%;
+        }
+    
+    div.id, div.name{
+        width: 90%;
+    }
+      
+}
+
+@media (max-width: 690px) {
+    div.id, div.name, div.completed {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        }
+        input {
+            padding: 0.2rem;
+            max-width: 100%;
+        }
+    .btn {
+        font-size: 0.5rem;
+    }
+      
+}
+
+@media (max-width: 410px) {
+    .container .number {
+        font-size: 1rem;
+        text-align: center;
+        width: 100%;
+    }
+    .container h1 {
+        font-size: 1.5rem;
+    }
+    .singleTask h1 {
+        font-size: 1.4rem !important;
+    }
+}
+
+@media (max-width: 352px) {
+    .container{
+        width: 290px;
+    }
+    .container form, .container .all-tasks{
+        width: 290px;
+    }
+}
 
 
 

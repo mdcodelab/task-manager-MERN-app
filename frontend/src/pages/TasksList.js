@@ -12,13 +12,13 @@ function TaskList() {
 //select task state
 const[selectTask, setSelectTask]=React.useState(null);
 
-  const[loading, setLoading]=React.useState(true);
-  
+  const[loading, setLoading]=React.useState(false);
+  const[message, setMessage]=React.useState(null);
 
   //get all tasks
 const getAllTasks = async () => {
-try {
   setLoading(true);
+try {
   const response = await fetch("http://localhost:3001/api/v1/tasks")
   const data = await response.json();
   console.log(data);
@@ -37,13 +37,12 @@ React.useEffect(() => {
 //add task
 function onChange(e) {
   setText(e.target.value);
-  console.log(text)
 }
 
 async function onSubmit(e) {
   e.preventDefault();
-  console.log("hello")
   try {
+    setLoading(true);
     const response = await fetch("http://localhost:3001/api/v1/tasks", {
       method: "POST",
       headers: {
@@ -54,15 +53,25 @@ async function onSubmit(e) {
         completed: false,
       }),
     });
-    const data = await response.json();
-    console.log(data);
-    setTasks([...tasks, data.task]);
-    console.log(tasks);
-    setText("");
+
+  
+      const data = await response.json();
+      console.log(data);
+      if(data.task.name.length > 1 && data.task.name.length < 20) {
+        setTasks([...tasks, data.task]);
+        console.log(tasks);
+        setText("");
+      } 
+    
   } catch (error) {
     console.log(error);
+    setMessage("Error");
+    setText("");
   }
+  setLoading(false);
 }
+
+console.log(message);
 
 //deleting tasks
 async function handleClick (id) {
@@ -74,7 +83,7 @@ console.log(tasks)
 }
 
   if(loading) {
-    return <h1>Loading...</h1>
+    return <h1><Spinner></Spinner></h1>
   }
 
 
@@ -83,6 +92,7 @@ console.log(tasks)
       <h1>Task Manager</h1>
       <div className="number">Number of tasks: {tasks.length}</div>
       <form onSubmit={onSubmit}>
+      {message && (<p style={{fontSize: "0.7rem", marginBottom: "0.5rem", color: "grey"}}>Task name must be between 2 and 20 characters long</p>)}
         <input type="text" placeholder="e.g walking the cat..." value={text} onChange={onChange}></input>
         <button type="submit" className="btn">SUBMIT</button>
       </form>
@@ -92,7 +102,7 @@ console.log(tasks)
         return <div className="task" key={task._id}>
           <p className={task.completed ? "comp" : ""}>{task.name}</p>
           <div className="icons">
-          <Link to={`/tasks/${task._id}`}><FaEdit className="icon green"></FaEdit></Link>
+          <Link to={`/tasks/${task._id}`} className="link"><FaEdit className="icon green"></FaEdit></Link>
             <FaTrash className="icon red" onClick={()=> handleClick(task._id)}></FaTrash>
         </div>
       </div>
